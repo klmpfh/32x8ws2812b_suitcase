@@ -1,0 +1,24 @@
+{
+  "name": "32x8ws2812b_raspberrypi_artnet_telegrambot_suitcase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klmpfh/32x8ws2812b_raspberrypi_artnet_telegrambot_suitcase.git"
+  },
+  "author": "Max B.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/klmpfh/32x8ws2812b_raspberrypi_artnet_telegrambot_suitcase/issues"
+  },
+  "homepage": "https://github.com/klmpfh/32x8ws2812b_raspberrypi_artnet_telegrambot_suitcase#readme",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "pm2": "^4.5.6",
+    "zeromq": "^5.2.8"
+  }
+}
