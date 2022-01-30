@@ -1,5 +1,9 @@
 # 32x8ws2812b_suitcase
 
+__⚠️ Work in progress ⚠️__
+
+Nothing is working 🙈
+
 ## API
 
 get all informations to show from Artnet and frontend.
