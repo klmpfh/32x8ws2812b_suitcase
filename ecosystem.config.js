@@ -1,29 +1,29 @@
 module.exports = {
   apps : [
     {
-      name        : 'artnetRes',
-      script      : "./src/artnetRes.js",
-      watch       : "./src/artnetRes.js",
+      name        : 'api',
+      script      : "./index_api.js",
+      watch       : "./src/api/**",
     },
     {
-      name        : 'ledMapper',
-      script      : "./src/ledMapper.js",
-      watch       : "./src/ledMapper.js",
+      name        : 'artnet',
+      script      : "./index_artnet.js",
+      watch       : "./src/artnet/**",
     },
     {
-      name        : 'renderLetter',
-      script      : "./src/renderLetter.js",
-      watch       : "./src/renderLetter.js",
+      name        : 'frontend',
+      script      : "./index_frontend.js",
+      watch       : "./src/frontend/**",
     },
     {
-      name        : 'telegram',
-      script      : "./src/telegram.js",
-      watch       : "./src/telegram.js",
+      name        : 'ledout',
+      script      : "./index_ledout.js",
+      watch       : "./src/ledout/**",
     },
     {
-      name        : 'ws2812b',
-      script      : "./src/ws2812b.js",
-      watch       : "./src/ws2812b.js",
-    }
+      name        : 'renderer',
+      script      : "./index_renderer.js",
+      watch       : "./src/renderer/**",
+    },
   ]
 }

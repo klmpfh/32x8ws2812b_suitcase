@@ -1,11 +1,21 @@
 # 32x8ws2812b_suitcase
 
-## what we need
+## API
 
-- ~~telegram bot server~~ removed 26.01.2022
-  - ~~env bot token~~
-- artnet reciever
-  - env or settings for universe (2x)
-- __NEW: webserver__ add 26.01.2022
-  - some settings, stored local
-  - input for display on LEDs
+get all informations to show from Artnet and frontend.
+
+## Artnet
+
+transform artnet-stuff to API-stuff
+
+## frontend
+
+Userinput for simple values, talking with API
+
+## LEDOut
+
+talking to LEDs, data by renderer
+
+## renderer
+
+getting everythink from API and render all LEDs, send to LEDOut
