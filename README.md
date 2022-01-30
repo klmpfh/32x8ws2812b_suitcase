@@ -1,8 +1,26 @@
 # 32x8ws2812b_suitcase
 
-__⚠️ Work in progress ⚠️__
+⛔️ __work in progress__ ⛔️
 
 Nothing is working 🙈
+
+## lazy install
+
+```bash
+git clone https://github.com/klmpfh/32x8ws2812b_suitcase.git
+```
+
+and choose a branch if you want to ...
+
+```bach
+git branch -a
+```
+
+Or the lazy way on test-branch as long as 'work in progress'
+
+```bach
+npm run lazy
+```
 
 ## API
 
