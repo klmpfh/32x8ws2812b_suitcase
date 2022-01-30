@@ -4,17 +4,17 @@
 
 Nothing is working 🙈
 
-## lazy install
+## install
 
 ```bash
 git clone https://github.com/klmpfh/32x8ws2812b_suitcase.git
 ```
 
-and choose a branch if you want to ...
+## run
 
-```bach
-git branch -a
-```
+- npm install
+- npm run start
+- npm run monitor
 
 Or the lazy way on test-branch as long as 'work in progress'
 
