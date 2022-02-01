@@ -10,6 +10,11 @@ Nothing is working 🙈
 git clone https://github.com/klmpfh/32x8ws2812b_suitcase.git
 ```
 
+npm install -g node-gyp
+git clone --recursive https://github.com/beyondscreen/node-rpi-ws281x-native.git
+cd rpi-ws281x-native
+npm install
+
 ## run
 
 - npm install

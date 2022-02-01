@@ -4,7 +4,7 @@
   "description": "- ~~telegram bot server~~ removed 26.01.2022\r   - ~~env bot token~~\r - artnet reciever\r   - env or settings for universe (2x)\r - __NEW: webserver__ add 26.01.2022\r   - some settings, stored local\r   - input for display on LEDs",
   "main": "entrypoint.sh",
   "scripts": {
-    "lazy": "git branch origin/test && git pull && npm install && npm run start && npm run monitor",
+    "lazy": "git branch origin/test && git pull && npm install && npm run stop && npm run start && npm run monitor",
     "inst": "npm install",
     "start": "npx pm2 start ./ecosystem.config.js",
     "stop": "npx pm2 stop ./ecosystem.config.js",
