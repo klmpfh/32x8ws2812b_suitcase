@@ -9,13 +9,15 @@ port.write('main screen turn on', function(err) {
   }
 })
 
+const buffer_size = 32*8*3;
+
 // sending some random stuff ...
 function sendSomeStuff(){
-  let buffer = new ArrayBuffer(32*8*3);
+  let buffer = new ArrayBuffer(buffer_size);
 
-  buffer.forEach((v,i,a) => {
-    a[i] = Math.floor(Math.random()*255);
-  });
+  for (let i = 0; i < buffer.length; i++) {
+    buffer[i] = Math.floor(Math.random()*255);;
+  }
 
   port.write(buffer, function(err) {
     if (err) {
