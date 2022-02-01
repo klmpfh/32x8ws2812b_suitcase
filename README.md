@@ -10,39 +10,24 @@ Nothing is working 🙈
 git clone https://github.com/klmpfh/32x8ws2812b_suitcase.git
 ```
 
-npm install -g node-gyp
-git clone --recursive https://github.com/beyondscreen/node-rpi-ws281x-native.git
-cd rpi-ws281x-native
-npm install
-
-## run
-
-- npm install
-- npm run start
-- npm run monitor
-
-Or the lazy way on test-branch as long as 'work in progress'
-
-```bach
-npm run lazy
+```bash
+npm run inst
 ```
 
-## API
+## start
 
-get all informations to show from Artnet and frontend.
+```bash
+npm run start
+```
 
-## Artnet
+## wiring / setup
 
-transform artnet-stuff to API-stuff
+There is an Arduino Nano to controll the LEDs, because, it isn't working on my machien with node-ws281x-stuff ... i dont know why. So it is.
 
-## frontend
+Arduino Nano conected via USB to Raspberry 3B+.
 
-Userinput for simple values, talking with API
+LED-Matrix on Arduino digital out.
 
-## LEDOut
+## Arduino stuff
 
-talking to LEDs, data by renderer
-
-## renderer
-
-getting everythink from API and render all LEDs, send to LEDOut
+## Raspberry stuff

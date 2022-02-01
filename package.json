@@ -4,12 +4,12 @@
   "description": "- ~~telegram bot server~~ removed 26.01.2022\r   - ~~env bot token~~\r - artnet reciever\r   - env or settings for universe (2x)\r - __NEW: webserver__ add 26.01.2022\r   - some settings, stored local\r   - input for display on LEDs",
   "main": "entrypoint.sh",
   "scripts": {
-    "lazy": "git branch origin/test && git pull && npm install && npm run stop && npm run start && npm run monitor",
     "inst": "npm install",
     "start": "npx pm2 start ./ecosystem.config.js",
     "stop": "npx pm2 stop ./ecosystem.config.js",
     "restart": "npx pm2 restart ./ecosystem.config.js",
-    "monitor": "npx pm2 monit"
+    "monitor": "npx pm2 monit",
+    "monit": "npx pm2 monit"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/klmpfh/32x8ws2812b_suitcase#readme",
   "dependencies": {
-    "pm2": "^5.1.2"
+    "pm2": "^5.1.2",
+    "serialport": "^9.2.8"
   }
 }
