@@ -1,16 +1,23 @@
-const ws281x = require('rpi-ws281x-native');
-const options = {
-  dma: 10,
-  freq: 800000,
-  gpio: 18,
-  invert: false,
-  brightness: 255,
-  stripType: ws281x.stripType.WS2812
-};
+const SerialPort = require('serialport')
 
-const channel = ws281x(20, options);
-const colors = channel.array;
+// ls /dev/ttyUSB* /dev/ttyUSB0
+const port = new SerialPort(process.platform == 'linux' ? '/dev/ttyUSB0' : 'COM4', {
+  baudRate: 115200
+})
 
-// update color-values
-colors[42] = 0xffcc22;
-ws281x.render();
+const buffer_size = 32*8*3;
+
+// sending some random stuff ...
+function sendSomeStuff(){
+
+  for (let i = 0; i < buffer_size; i++) {
+    port.write(Math.floor(Math.random()*255).toString(16), function(err) {
+      if (err) {
+        return console.error('Error on write: ', err.message)
+      }
+    });
+  }
+
+}
+
+setInterval(sendSomeStuff, (1000/60));

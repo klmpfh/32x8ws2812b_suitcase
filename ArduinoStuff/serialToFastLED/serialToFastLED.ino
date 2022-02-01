@@ -26,7 +26,7 @@ void setup() {
 void loop() { 
 
   // if a full LED-package is available ...
-  if(Serial.available() == BUFFER_SIZE){
+  if(Serial.available() >= BUFFER_SIZE){
     // ... read ...
     int rlen = Serial.readBytes(buf, BUFFER_SIZE);
 
@@ -38,6 +38,5 @@ void loop() {
   }
 
   FastLED.show();
-  FastLED.delay(5);
 
 }

@@ -22,7 +22,7 @@ module.exports = {
     },
     {
       name        : 'renderer',
-      script      : "./index_renderer.js",
+      script      : "./src/renderer/index.js",
       watch       : "./src/renderer/**",
     },
   ]
