@@ -1,4 +1,6 @@
 const SerialPort = require('serialport')
+
+// ls /dev/ttyUSB*
 const port = new SerialPort('COM4', {
   baudRate: 115200
 })
@@ -13,13 +15,13 @@ const buffer_size = 32*8*3;
 
 // sending some random stuff ...
 function sendSomeStuff(){
-  let buffer = new ArrayBuffer(buffer_size);
+  let buf = Buffer.allocUnsafe(buffer_size);
 
-  for (let i = 0; i < buffer.length; i++) {
-    buffer[i] = Math.floor(Math.random()*255);;
+  for (let i = 0; i < buffer_size; i++) {
+    buf[i] = Math.floor(Math.random()*255);
   }
 
-  port.write(buffer, function(err) {
+  port.write(buf.toString('hex'), function(err) {
     if (err) {
       return console.error('Error on write: ', err.message)
     }
