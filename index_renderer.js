@@ -1,7 +1,8 @@
 const SerialPort = require('serialport')
+const Buffer = require('buffer').Buffer;
 
-// ls /dev/ttyUSB*
-const port = new SerialPort('/dev/ttyUSB0', {
+// ls /dev/ttyUSB* /dev/ttyUSB0
+const port = new SerialPort('COM4', {
   baudRate: 115200
 })
 
