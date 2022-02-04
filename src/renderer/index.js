@@ -1,23 +1,29 @@
 const SerialPort = require('serialport')
 
 // ls /dev/ttyUSB* /dev/ttyUSB0
-const port = new SerialPort(process.platform == 'linux' ? '/dev/ttyUSB0' : 'COM4', {
-  baudRate: 115200
+const port = new SerialPort(process.platform == 'linux' ? '/dev/ttyUSB0' : 'COM5', {
+  baudRate: 250000,
+  databits: 8,
+  stopBits: 1,
+  parity: 'even',
+  autoOpen: true,
 })
 
-const buffer_size = 32*8*3;
 
-// sending some random stuff ...
-function sendSomeStuff(){
+const NUM_LEDs = 32*8;
 
-  for (let i = 0; i < buffer_size; i++) {
-    port.write(Math.floor(Math.random()*255).toString(16), function(err) {
-      if (err) {
-        return console.error('Error on write: ', err.message)
-      }
-    });
-  }
+const bufLength = NUM_LEDs * 3;
 
-}
+let value = 0;
 
-setInterval(sendSomeStuff, (1000/60));
+let buf = new Array(bufLength).fill(value);
+
+setInterval(()=>{
+  value = (value + 1) % 256
+}, 20);
+
+// on "start" message, send led color buffer
+port.on('data', function () {
+  port.write(buf);
+});
+

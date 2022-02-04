@@ -1,42 +1,54 @@
+#define FASTLED_ALLOW_INTERRUPTS 0
+#define FASTLED_INTERRUPT_RETRY_COUNT 0
 #include <FastLED.h>
 
 #define DATA_PIN 6
-#define CLOCK_PIN 13
 
 const int NUM_LEDS = 32 * 8;
 
-const int BUFFER_SIZE = NUM_LEDS * 3;
-char buf[BUFFER_SIZE];
+const int bufferLength = NUM_LEDS * 3;
 
 CRGB leds[NUM_LEDS];
+
+byte buf[bufferLength];
 
 void setup() {
 
   // initial Serial com
-  Serial.begin(115200);
+  Serial.begin(250000, SERIAL_8E1);
+
+  // waiting time after request a package
+  Serial.setTimeout(1000);
 
   // setup FastLED
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
 
-  // waiting 4 Serial is ready
+  // waiting f Serial is ready
   while(!Serial) delay(1);
   
 }
 
-void loop() { 
+void loop() {
 
-  // if a full LED-package is available ...
-  if(Serial.available() >= BUFFER_SIZE){
-    // ... read ...
-    int rlen = Serial.readBytes(buf, BUFFER_SIZE);
+  // flush Serrial
+  while(Serial.available() > 0) Serial.read();
 
-    for(int i = 0; i < rlen; i++){
-      const int led = i / 3;
-      const int color = i % 3;
-      leds[led][color] = buf[i];
+  // send for start transmission
+  Serial.write(0xff);
+
+  // read all color values
+  int lastCount = Serial.readBytes(buf, bufferLength);
+  
+  // put on LEDs if there are enought byte. else random demo mode
+  if(lastCount == bufferLength)
+    for( int i = 0 ; i < bufferLength ; i++)
+      leds[i/3][i%3] = buf[i];
+  else
+    for( int i = 0 ; i < bufferLength ; i++){
+      leds[i/3][i%3] = random(0,2);
     }
-  }
 
-  FastLED.show();
+  // show on LEDs
+  FastLED.show(); // needs ~ 8ms
 
 }
