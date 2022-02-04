@@ -19,7 +19,8 @@ let value = 0;
 let buf = new Array(bufLength).fill(value);
 
 setInterval(()=>{
-  value = (value + 1) % 256
+  value = (value + 1) % 256;
+  buf.fill(value);
 }, 20);
 
 // on "start" message, send led color buffer
