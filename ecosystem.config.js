@@ -3,27 +3,27 @@ module.exports = {
     {
       name        : 'api',
       script      : "./index_api.js",
-      watch       : "./src/api/**",
+      watch       : "./**",
     },
     {
       name        : 'artnet',
       script      : "./index_artnet.js",
-      watch       : "./src/artnet/**",
+      watch       : "./**",
     },
     {
       name        : 'frontend',
       script      : "./index_frontend.js",
-      watch       : "./src/frontend/**",
+      watch       : "./**",
     },
     {
       name        : 'ledout',
-      script      : "./index_ledout.js",
-      watch       : "./src/ledout/**",
+      script      : "./src/ledout/index.js",
+      watch       : "./**",
     },
     {
       name        : 'renderer',
       script      : "./src/renderer/index.js",
-      watch       : "./src/renderer/**",
+      watch       : "./**",
     },
   ]
 }

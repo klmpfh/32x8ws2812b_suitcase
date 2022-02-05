@@ -1,30 +1,25 @@
-const SerialPort = require('serialport')
+/**
+ * renderer
+ *
+ * getting all values and make the Matrix with it!
+ *
+ * Artnet forground
+ * Artnet Background
+ * Text Color
+ * Effekts??
+ * text (scrolling? blending?)
+ *
+ * the LEDs are starting in my case from bottom right corner
+ * LED (32|8) is the first one
+ * starts upwards and the col befor downwards
+ * ... and so on ... up, down, up, down
+ */
 
-// ls /dev/ttyUSB* /dev/ttyUSB0
-const port = new SerialPort(process.platform == 'linux' ? '/dev/ttyUSB0' : 'COM5', {
-  baudRate: 250000,
-  databits: 8,
-  stopBits: 1,
-  parity: 'even',
-  autoOpen: true,
-})
-
-
-const NUM_LEDs = 32*8;
-
-const bufLength = NUM_LEDs * 3;
-
-let value = 0;
-
-let buf = new Array(bufLength).fill(value);
-
-setInterval(()=>{
-  value = (value + 1) % 256;
-  buf.fill(value);
-}, 20);
-
-// on "start" message, send led color buffer
-port.on('data', function () {
-  port.write(buf);
-});
+const dgram = require('dgram');
+setInterval(() => {
+  const client = dgram.createSocket('udp4');
+  client.send(new Int8Array((settings.colors_per_leds * settings.leds_x * settings.leds_y)).fill(8), settings.intern_listen_port, 'localhost', (err) => {
+    client.close();
+  });
+}, 1000)
 
