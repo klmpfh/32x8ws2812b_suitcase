@@ -2,17 +2,17 @@ module.exports = {
   apps : [
     {
       name        : 'api',
-      script      : "./index_api.js",
+      script      : "./src/api/index.js",
       watch       : "./**",
     },
     {
       name        : 'artnet',
-      script      : "./index_artnet.js",
+      script      : "./src/artnet/index.js",
       watch       : "./**",
     },
     {
       name        : 'frontend',
-      script      : "./index_frontend.js",
+      script      : "./src/frontend/index.js",
       watch       : "./**",
     },
     {
