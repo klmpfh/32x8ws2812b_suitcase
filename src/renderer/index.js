@@ -6,7 +6,7 @@
  * Artnet forground
  * Artnet Background
  * Text Color
- * Effekts??
+ * FX??
  * text (scrolling? blending?)
  *
  * the LEDs are starting in my case from bottom right corner
@@ -15,11 +15,20 @@
  * ... and so on ... up, down, up, down
  */
 
+const settings = require('./settings.json');
+settings.ledout = require('../ledout/settings.json');
+
 const dgram = require('dgram');
 setInterval(() => {
   const client = dgram.createSocket('udp4');
-  client.send(new Int8Array((settings.colors_per_leds * settings.leds_x * settings.leds_y)).fill(8), settings.intern_listen_port, 'localhost', (err) => {
-    client.close();
-  });
+  client.send(
+    new Int8Array((settings.ledout.colors_per_leds * settings.ledout.leds_x * settings.ledout.leds_y)).fill(8),
+    settings.ledout.intern_listen_port,
+    'localhost',
+    (err) => {
+      client.close();
+    }
+  );
 }, 1000)
+
 

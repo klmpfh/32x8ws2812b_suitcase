@@ -11,7 +11,7 @@
 const SerialPort = require('serialport');
 
 // get settings
-const settings = require('../../settings').ledout;
+const settings = require('./settings');
 
 let buf = new Int8Array(32*8).fill(0);
 
