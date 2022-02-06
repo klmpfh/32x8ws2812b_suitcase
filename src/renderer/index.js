@@ -15,20 +15,52 @@
  * ... and so on ... up, down, up, down
  */
 
+
+const dgram = require('dgram');
+
+
+
 const settings = require('./settings.json');
 settings.ledout = require('../ledout/settings.json');
 
-const dgram = require('dgram');
+
+
+
+const LEDMatrix = require('./classes/LEDMatrix');
+
+const matrtix = new LEDMatrix();
+
+let running = true;
+
 setInterval(() => {
-  const client = dgram.createSocket('udp4');
-  client.send(
-    new Int8Array((settings.ledout.colors_per_leds * settings.ledout.leds_x * settings.ledout.leds_y)).fill(8),
-    settings.ledout.intern_listen_port,
-    'localhost',
-    (err) => {
-      client.close();
-    }
+  matrtix.set_pixel_rgb(
+    Math.floor(Math.random()*32),
+    Math.floor(Math.random()*8),
+    Math.floor(Math.random()*256),
+    Math.floor(Math.random()*256),
+    Math.floor(Math.random()*256),
   );
-}, 1000)
+}, 100);
+
+
+function sendLoop() {
+  if (running) {
+    const client = dgram.createSocket('udp4');
+    client.send(
+      matrtix.get_buffer(),
+      settings.ledout.intern_listen_port,
+      'localhost',
+      (err) => {
+        client.close();
+        if(err) throw err;
+        setImmediate(sendLoop);
+      }
+    );
+  }
+}
+
+
+
+sendLoop();
 
 

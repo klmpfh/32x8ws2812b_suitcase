@@ -13,11 +13,11 @@ const SerialPort = require('serialport');
 // get settings
 const settings = require('./settings');
 
-let buf = new Int8Array(32*8).fill(0);
+let buf = new Uint8Array(settings.leds_x * settings.leds_y).fill(0);
 
 // setup SerialPort with Arduino std
 const port = new SerialPort(
-  settings.USBPort,
+  process.platform == 'linux' ? settings.USBPort : settings.WindowsTestingUSBPort,
   {
     baudRate: 250000,
     databits: 8,

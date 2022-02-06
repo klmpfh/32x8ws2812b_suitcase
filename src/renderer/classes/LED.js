@@ -1,6 +1,6 @@
 
 
-const settings = require('../../../settings').ledout;
+const settings = require('../../ledout/settings.json');
 
 class LED {
 
@@ -46,7 +46,15 @@ class LED {
   }
 
   get rgbArray(){
-    return [this.#r,this.#g,this.#b];
+    // let arr = new Uint8Array(3);
+    // arr[0] = this.#r;
+    // arr[1] = this.#g;
+    // arr[2] = this.#b;
+    return [
+      this.#r,
+      this.#g,
+      this.#b,
+    ];
   }
 
   set r(new_r) {

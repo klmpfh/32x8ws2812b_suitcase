@@ -8,7 +8,7 @@
     "start": "npx pm2 start ./ecosystem.config.js",
     "stop": "npx pm2 stop ./ecosystem.config.js",
     "restart": "npx pm2 restart ./ecosystem.config.js",
-    "monitor": "npx pm2 monit",
+    "logs": "npx pm2 logs",
     "monit": "npx pm2 monit"
   },
   "repository": {

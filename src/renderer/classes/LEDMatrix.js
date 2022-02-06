@@ -1,6 +1,6 @@
 const LED = require('./LED');
 
-const settings = require('../../../settings').ledout;
+const settings = require('../../ledout/settings.json');
 
 class LEDMatrix {
 
@@ -60,13 +60,29 @@ class LEDMatrix {
    * @param {Number || String} value hex value or colorcode
    * @returns LEDMatrix
    */
-  set_pixel(x,y,value){
+  set_pixel_value(x,y,value){
     this.#matrix[x][y].setHex(value);
     return this;
   }
 
+  /**
+   * set color on X_Y_pixel
+   * @param {Number} x hori index
+   * @param {Number} y verti index
+   * @param {Number} r red
+   * @param {Number} g green
+   * @param {Number} b blue
+   * @returns LEDMatrix
+   */
+  set_pixel_rgb(x,y,r,g,b){
+    this.#matrix[x][y].r = r;
+    this.#matrix[x][y].g = g;
+    this.#matrix[x][y].b = b;
+    return this;
+  }
+
   get_buffer(){
-    return this.#strip.map(LED => LED.rgbArray).flat();
+    return Uint8Array.from(this.#strip.map(LED => LED.rgbArray).flat());
   }
 
   get_matrix(){
