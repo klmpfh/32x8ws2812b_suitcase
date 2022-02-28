@@ -76,7 +76,7 @@ class LED {
       if(hex[0] == '#') hex = hex.slice(1);
 
       // error if not matching
-      if(!hex.match(/$(0-1a-f){6}^/)) throw new Error("Pleas send a color RGB hex String.");
+      if(!hex.match(/^[0-9a-fA-F]{6}$/)) throw new Error("Please send a color RGB hex String. got: #" + hex);
 
       hex = parseInt(hex, 16);
     }

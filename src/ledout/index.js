@@ -10,6 +10,19 @@
 // SerialPort communication ofer USB
 const SerialPort = require('serialport');
 
+// custom metrtics
+const tx2 = require('tx2');
+let fps_out = tx2.meter({
+  name      : 'f/s out',
+  samples   : 1,
+  timeframe : 60,
+});
+let fps_in = tx2.meter({
+  name      : 'f/s in',
+  samples   : 1,
+  timeframe : 60,
+});
+
 // get settings
 const settings = require('./settings');
 
@@ -30,12 +43,22 @@ const port = new SerialPort(
 // on "start" message, send led color from buffer
 port.on('data', function () {
   port.write(buf);
+  fps_out.mark();
+});
+
+port.on('error', (err) => {
+  server.close();
+  port.close();
+  console.error(err);
+  throw err;
 });
 
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 
 server.on('error', (err) => {
+  server.close();
+  port.close();
   console.error(err);
   throw err;
 });
@@ -43,6 +66,7 @@ server.on('error', (err) => {
 server.on('message', (msg, rinfo) => {
   if(rinfo.size == (settings.colors_per_leds * settings.leds_x * settings.leds_y)){
     buf = msg;
+    fps_in.mark();
   }
 });
 

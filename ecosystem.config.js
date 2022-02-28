@@ -15,18 +15,11 @@ module.exports = {
       // autorestart   : false,
     },
     {
-      name          : 'frontend',
-      script        : "./src/frontend/index.js",
-      watch         : "./**",
-      restart_delay : 4000,
-      // autorestart   : false,
-    },
-    {
       name          : 'ledout',
       script        : "./src/ledout/index.js",
-      watch         : "./**",
+      // watch         : "./**",
       restart_delay : 4000,
-      // autorestart   : false,
+      autorestart   : false,
     },
     {
       name          : 'renderer',

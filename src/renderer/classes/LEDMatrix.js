@@ -47,7 +47,10 @@ class LEDMatrix {
 
         const inner_x = (settings.leds_x - 1) - Math.floor(pixel_index / 8);
         const way_up = inner_x % 2 == 1; // odd is up
-        const inner_y = Math.abs((way_up ? 0 : (settings.leds_y - 1)) - (pixel_index % settings.leds_y));
+        const inner_y = Math.abs((settings.leds_y-1) - (way_up ? 0 : (settings.leds_y - 1)) - (pixel_index % settings.leds_y));
+
+        // ah ... its upside down ...
+
 
         return this.#matrix[inner_x][inner_y];
       });

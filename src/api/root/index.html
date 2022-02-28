@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.5.min.css" />
+  <title>32x8 Suitcase</title>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript">
+
+      // some glob vars
+      const nav = [
+        {
+          id: "nav_info",
+          text: "Info",
+          open: "info_content",
+          default: true,
+        },
+        {
+          id: "nav_text",
+          text: "Text",
+          open: "text_content",
+          default: false,
+        },
+        {
+          id: "nav_bg",
+          text: "Bachground color",
+          open: "background_color",
+          default: false,
+        },
+        {
+          id: "nav_fg",
+          text: "Forground color",
+          open: "forground_color",
+          default: false,
+        },
+        {
+          id: "nav_speed",
+          text: "Scrolling speed",
+          open: "speed_settings",
+          default: false,
+        },
+        {
+          id: "nav_save",
+          text: "Save and reset",
+          open: "save_and_reset",
+          default: false,
+        },
+      ];
+
+      function navclick(to_open_id, nav_btn_id) {
+        document.querySelectorAll('article').forEach(a => {
+          a.hidden = a.id != to_open_id;
+        });
+        document.querySelectorAll('nav > ul > li > button').forEach(b => {
+          b.type = b.id == nav_btn_id ? 'submit' : 'button';
+        })
+
+      }
+
+      function onOnLoad() {
+
+        // document is loaded
+
+        // hide all elements except default nav
+        navclick(nav.find(n => n.default).open, nav.find(n => n.default).id);
+
+
+        // setup buttons and fields
+
+        // get current values
+
+      }
+
+      function getValue(value_id) {
+        if(!value_id) throw new Error("need a value_id, got " + value_id);
+        return new Promise(function (resolve, reject) {
+          let request = new XMLHttpRequest();
+          request.open("GET", "" + value_id);
+          request.addEventListener('load', function (event) {
+            if(request.status >= 200 && request.status < 300) {
+              resolve(request.responseText);
+            } else {
+              reject(request.statusText, request.responseText);
+            }
+          });
+          request.send();
+        });
+      }
+
+      function sendData(data_object) {
+        if(!data_object) throw new Error("need need data to send ... got " + data_object);
+        return new Promise(function (resolve, reject) {
+          let request = new XMLHttpRequest();
+          request.open("POST", "");
+          request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          request.addEventListener('load', function (event) {
+            if(request.status >= 200 && request.status < 300) {
+              resolve(request.responseText);
+            } else {
+              reject(request.statusText, request.responseText);
+            }
+          });
+          request.send(JSON.stringify(data_object));
+        });
+      }
+
+      function update(field_id_array) {
+
+        // post object
+        let post_object = {};
+
+        // get names and values from this fields
+        field_id_array.forEach(id => {
+          const elem = document.querySelector('#' + id);
+          if(elem.tagName == 'INPUT' && elem.type == 'checkbox') {
+            post_object[elem.name] = elem.checked;
+          } else {
+            post_object[elem.name] = elem.value;
+          }
+
+        });
+
+        sendData(post_object);
+
+      }
+
+    </script>
+
+  </head>
+
+</head>
+
+<body onload="onOnLoad()">
+  <section>
+
+
+
+
+    <header>
+      <h1>32x8 Suitcase</h1>
+      <nav>
+        <ul>
+          <script type="text/javascript">
+            // is this vanilla or shit? ^^
+            nav.forEach(nav_item => {
+              document.write(`
+                <li>
+                  <button
+                    id="${nav_item.id}"
+                    type="button"
+                    onclick="navclick('${nav_item.open}','${nav_item.id}')"
+                  >
+                    ${nav_item.text}
+                  </button>
+                </li>
+              `);
+            });
+          </script>
+        </ul>
+      </nav>
+    </header>
+
+
+
+
+    <article id="info_content">
+      <figure>
+        <h1>Info</h1>
+      </figure>
+      <p>
+        On hardware site, we can just reach 20 frames per secound. that's the reason for text clipping at a speed
+        around 20.
+      </p>
+    </article>
+
+
+
+    <article id="text_content">
+      <figure>
+        <h1>Text</h1>
+      </figure>
+      <small>legend, see below</small>
+      <fieldset>
+        <textarea name="text" id="text_content_text"><<33<3##<<33</textarea>
+        <label>
+          <button type="submit" onclick="update(['text_content_text'])">update</button>
+        </label>
+      </fieldset>
+      <h2>text legend</h2>
+      <ul>
+        <li>[number|:]<i>em</i> --> number or double point this fixed length: <i>1em</i> <i>:em</i></li>
+        <li><i>&lt;3</i> heart without filling</li>
+        <li><i>&lt;&lt;33</i> heart whit filling</li>
+        <li><i>&lt;3##</i> heart with flickering filling</li>
+        <li><i>:(</i></li>
+        <li><i>:|</i></li>
+        <li><i>:)</i></li>
+        <li><i>##</i> some random stuff (same with unknown stuff)</li>
+        <li><i>undefined</i> some large random stuff</li>
+        <li><i>#F</i> LICHTFETISCH "F"</li>
+        <li>[return] new line ... classic</li>
+        <li><i>#SPACING</i> a colum blank space (space are 3 blank cols)</li>
+        <li><i>1/2</i></li>
+        <li><i>1/3</i></li>
+        <li><i>1/4</i></li>
+      </ul>
+    </article>
+
+
+
+
+    <article id="background_color">
+      <h1>background color:</h1>
+      <small>colors are from 0 to 255. the brightness is not linear</small>
+      <fieldset>
+        <label for="colors_background_r">red:</label>
+        <input name="colors_background_r" type="number" id="colors_background_r" value="0" min="0" max="255" />
+        <label for="colors_background_g">green:</label>
+        <input name="colors_background_g" type="number" id="colors_background_g" value="0" min="0" max="255" />
+        <label for="colors_background_b">blue:</label>
+        <input name="colors_background_b" type="number" id="colors_background_b" value="5" min="0" max="255" />
+        <label>
+          <input name="colors_background_some_random" type="checkbox" id="colors_background_some_random" /> add some
+          randnis (min value 2 somewhere)
+        </label>
+        <label>
+          <input name="flash" type="checkbox" id="colors_background_flash" /> short flash on save?
+        </label>
+        <label>
+          <button type="submit"
+            onclick="update(['colors_background_r','colors_background_g','colors_background_b','colors_background_some_random','colors_background_flash'])">
+            update
+          </button>
+        </label>
+      </fieldset>
+    </article>
+
+
+
+
+    <article id="forground_color">
+      <h1>forground color:</h1>
+      <caption>colors are from 0 to 255. the brightness is not linear. the step from 1 to 2 looks largen then 200 to
+        210.</caption>
+      <fieldset>
+        <label for="colors_forground_r">red:</label>
+        <input name="colors_forground_r" type="number" id="colors_forground_r" value="25" min="0" max="255" />
+        <label for="colors_forground_g">green:</label>
+        <input name="colors_forground_g" type="number" id="colors_forground_g" value="5" min="0" max="255" />
+        <label for="colors_forground_b">blue:</label>
+        <input name="colors_forground_b" type="number" id="colors_forground_b" value="0" min="0" max="255" />
+        <label>
+          <input name="flash" type="checkbox" id="colors_forground_flash" /> short flash on save?
+        </label>
+        <label><button type="submit"
+            onclick="update(['colors_forground_r','colors_forground_g','colors_forground_b','colors_forground_flash',])">update</button></label>
+      </fieldset>
+    </article>
+
+
+
+
+    <article id="speed_settings">
+      <h1>scrolling speed</h1>
+      <caption>15 is a readable choocie. 32 will scroll a letter ofer the display in a secound, 64 in a half</caption>
+      <fieldset>
+        <label for="speed_settings">colums per secound:</label>
+        <input name="speed_settings" type="number" id="val_speed_settings" value="15" min="0" max="255"></input>
+        <label><button type="submit" onclick="update(['val_speed_settings'])">update</button></label>
+      </fieldset>
+    </article>
+
+
+
+    <article id="save_and_reset">
+      <h1>safe current display as default</h1>
+      <form method="post" action="#">
+        <fieldset>
+          <label>
+            <input name="safe_check" type="checkbox" id="safe_check" /> i am sure!
+          </label>
+          <label><button type="submit" disabled>safe</button></label>
+        </fieldset>
+      </form>
+      <h1>reset to default</h1>
+      <fieldset>
+        <label>
+          <input name="reset_check" type="checkbox" id="reset_check" /> i am sure!
+        </label>
+        <label><button type="submit" disabled>reset</button></label>
+      </fieldset>
+    </article>
+
+
+
+  </section>
+</body>
+
+</html>
